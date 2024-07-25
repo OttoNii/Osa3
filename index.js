@@ -30,7 +30,14 @@ let persons = [
     response.json(persons)
   })
 
- 
+ app.get('/info', (request, response) => {
+    const maxID = persons.length
+    const message = `Phonebook has info for ${maxID} people`
+    const timeOfRequest = new Date()
+
+    response.send(`<h1>${message}</h1><p>${timeOfRequest}</p>`)
+  
+ })
   
   
 const PORT = 3001
