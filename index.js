@@ -60,6 +60,18 @@ app.delete('/api/persons/:id', (request, response) => {
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
+  if (!body.name || !body.number) {
+    return response.status(400).json({ 
+      error: 'content missing' 
+    })
+  }
+  const nameExists = persons.some(person => person.name === body.name);
+  if (nameExists) {
+    return response.status(400).json({ 
+      error: 'name must be unique' 
+    });
+  }
+  
   const person = {
     id: getRandomID(),
     name: body.name,
