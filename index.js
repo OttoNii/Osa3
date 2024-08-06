@@ -4,9 +4,7 @@ const app = express()
 const cors = require('cors')
 const PORT = process.env.PORT || 3001
 
-app.use(cors())
-app.use(express.json())
-app.use(morgan('tiny'))
+
 
 morgan.token('post-data', (req) => {
   return JSON.stringify(req.body);
@@ -22,7 +20,7 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
-app.use(requestLogger)
+
 
 let persons = [
     {
@@ -46,7 +44,12 @@ let persons = [
       number: "39-23-6423122"
     }
   ]
-  
+
+  app.use(cors())
+  app.use(express.json())
+  app.use(requestLogger)
+
+
   app.get('/api/persons', (request, response) => {
     response.json(persons)
   })
