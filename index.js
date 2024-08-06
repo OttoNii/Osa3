@@ -2,10 +2,11 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
-const PORT = process.env.PORT || 10000
+const PORT = process.env.PORT || 3001
 
 app.use(cors())
 app.use(express.json())
+app.use(morgan('tiny'))
 
 morgan.token('post-data', (req) => {
   return JSON.stringify(req.body);
@@ -13,26 +14,34 @@ morgan.token('post-data', (req) => {
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-data'));
 
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
 
+app.use(requestLogger)
 
 let persons = [
     {
-      id: "1",
+      id: 1,
       name: "Arto Hellas",
       number: "040-123456"
     },
     {
-      id: "2",
+      id: 2,
       name: "Ada Lovelace",
       number: "39-55-5323523"
     },
     {
-      id: "3",
+      id: 3,
       name: "Dan Abramov",
       number: "12-43-234345"
     },
     {
-      id: "4",
+      id: 4,
       name: "Mary Poppendieck",
       number: "39-23-6423122"
     }
