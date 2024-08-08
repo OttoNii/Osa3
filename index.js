@@ -5,6 +5,7 @@ const cors = require('cors')
 const PORT = process.env.PORT || 3001
 
 
+app.use(express.static('dist'))
 
 morgan.token('post-data', (req) => {
   return JSON.stringify(req.body);
@@ -19,7 +20,6 @@ const requestLogger = (request, response, next) => {
   console.log('---')
   next()
 }
-
 
 
 let persons = [
@@ -49,6 +49,11 @@ let persons = [
   app.use(express.json())
   app.use(requestLogger)
 
+
+  app.get('/', (request, response) => {
+    response.send('<h1>Hello World!</h1>')
+  })
+  
 
   app.get('/api/persons', (request, response) => {
     response.json(persons)
