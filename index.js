@@ -5,7 +5,7 @@ const cors = require('cors')
 const PORT = process.env.PORT || 3001
 
 
-app.use(express.static('dist'))
+app.use(express.static('backend'))
 
 morgan.token('post-data', (req) => {
   return JSON.stringify(req.body);
