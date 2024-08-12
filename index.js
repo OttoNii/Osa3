@@ -8,7 +8,7 @@ const Person = require('./models/person')
 
 
 
-app.use(express.static('dist copy'))
+app.use(express.static('dist'))
 
 morgan.token('post-data', (req) => {
   return JSON.stringify(req.body);
@@ -59,7 +59,7 @@ let persons = [
   })
 })
 
-app.delete('/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   persons = persons.filter(person => person.id !== id)
 
