@@ -8,7 +8,7 @@ const Person = require('./models/person')
 
 
 
-app.use(express.static('dist'))
+app.use(express.static('dist copy'))
 
 morgan.token('post-data', (req) => {
   return JSON.stringify(req.body);
