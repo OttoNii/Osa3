@@ -10,11 +10,6 @@ const Person = require('./models/person')
 
 app.use(express.static('dist'))
 
-morgan.token('post-data', (req) => {
-  return JSON.stringify(req.body);
-});
-
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-data'));
 
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
@@ -68,6 +63,7 @@ app.delete('/api/persons/:id', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
+  
   if (body.content === undefined) {
     return response.status(400).json({ error: 'content missing' })
   }
