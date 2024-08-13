@@ -1,6 +1,5 @@
 require('dotenv').config()
 const express = require('express')
-const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
 const PORT = process.env.PORT
@@ -63,10 +62,10 @@ app.delete('/api/persons/:id', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
-  
-  if (body.content === undefined) {
+
+  /*if (body.content === undefined) {
     return response.status(400).json({ error: 'content missing' })
-  }
+  }*/
 
   const person = new Person({
     name: body.name,
