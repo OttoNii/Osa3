@@ -40,12 +40,14 @@ let persons = [
     .catch(error => next(error))
   })
 
- app.get('/info', (request, response) => {
-    const maxID = persons.length
-    const message = `Phonebook has info for ${maxID} people`
+ app.get('/info', (request, response, next) => {
+  Person.countDocuments({})
+  .then(count => {
+    const message = `Phonebook has info for ${count} people`
     const timeOfRequest = new Date()
-
     response.send(`<h1>${message}</h1><p>${timeOfRequest}</p>`)
+  })
+  .catch(error => next(error))
   
  })
   
@@ -96,7 +98,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 
   Person.findByIdAndUpdate(request.params.id, person, { new: true })
     .then(updatedPerson => {
-      response.json(updatedPerson)
+      response.json(updated)
     })
     .catch(error => next(error))
 })
